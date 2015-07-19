@@ -10,8 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.classifiers.functions.LinearRegression;
@@ -59,7 +57,7 @@ public class MineroControler {
     public String regresionLineal() {
         BufferedReader breader = null;
         Instances datos = null;
-        breader = new BufferedReader(fuente_arff); //"ventasPrac2.arff"     
+        breader = new BufferedReader(fuente_arff); 
         try {
             datos = new Instances(breader);
             datos.setClassIndex(datos.numAttributes() - 1); // clase principal, última en atributos
@@ -101,7 +99,7 @@ public class MineroControler {
 // Recibe tablas con valores numericos y clases
 // Retorna: String con resultado de clasificación
 // -------------------------------------------------------------------
-    public String clasificarSimpleKmeans() {
+    public String clasificarSimpleKmeans(int numClusters) {
         BufferedReader breader = null;
         Instances datos = null;
         breader = new BufferedReader(fuente_arff); 
@@ -116,7 +114,7 @@ public class MineroControler {
         try {
             skmeans.setSeed(10);
             skmeans.setPreserveInstancesOrder(true);
-            skmeans.setNumClusters(10);
+            skmeans.setNumClusters(numClusters);
             skmeans.buildClusterer(datos);
         } catch (Exception ex) {
             System.err.println("Problemas al ejecutar algorimo de clasificacion");
@@ -143,7 +141,6 @@ public class MineroControler {
             Attribute atr =  datos.attribute(atributo);
             datos.setClass(atr);
             //datos.setClassIndex(0);
-            
         } catch (IOException ex) {
             System.err.println("Problemas al intentar cargar los datos");
             return null;

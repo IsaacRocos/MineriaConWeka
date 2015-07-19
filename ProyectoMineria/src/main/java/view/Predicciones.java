@@ -44,7 +44,7 @@ public class Predicciones extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("SAES DM - Predicción");
 
-        comboBoxPredicciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Modelo: Calificación -> Edad, EvalProfesor, EvalMateria", "Modelo: Calificación -> Edad, Universidad, Materia, EvalMateria", " " }));
+        comboBoxPredicciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Modelo: Calificación -> Edad, EvalProfesor, EvalMateria", "Modelo: Calificación -> Edad, Universidad, Materia, EvalMateria", "Modelo: Calificación -> Edad, Universidad, Materia, Genero, EvalMateria", " " }));
         comboBoxPredicciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxPrediccionesActionPerformed(evt);
@@ -113,6 +113,9 @@ public class Predicciones extends javax.swing.JFrame {
             case 1:
                     panelResul.setText("Predecir la calificación de un alumno de acuerdo a: \n>EDAD \n>PLANTEL\n>MATERIA");
                 break;
+            case 2:
+                    panelResul.setText("Predecir la calificación de un alumno de acuerdo a: \n>EDAD \n>PLANTEL\n>GENERO\n>MATERIA");
+                break;
         }
         
     }//GEN-LAST:event_comboBoxPrediccionesActionPerformed
@@ -137,6 +140,21 @@ public class Predicciones extends javax.swing.JFrame {
                 String resultado1 = minero.regresionLineal();
                 String complemento1 = "\n\n\n\n*** EVALUACION ***\n\nUn alumno de " + nregP1[0] + " años que cursa " + nregP1[2] + " en " + nregP1[1] + "\npuede obtener un " + minero.getValorCalculado() +" como calificación";    
                 panelResul.setText(resultado1 + complemento1);
+                break;
+            case 2:
+                String nuevoReg2 = JOptionPane.showInputDialog(this, "Introduzca los datos a evaluar. \nEn formato: EDAD,PLANTEL,MATERIA,GENERO\nPara obtener calificacionMateria");
+                String nregP2[] = nuevoReg2.split(",");
+                minero.setARFF("C:\\arff\\ALUMN_EDAD_PLANT_MAT_GEN_EVAL.arff" , nuevoReg2);
+                String resultado2 = minero.regresionLineal();
+                String complemento2 = "\n\n\n\n*** EVALUACION ***\n\n";
+                
+                if(nregP2[3].contains("H")){
+                    complemento2 += "Un alumno de " + nregP2[0] + " años que cursa " + nregP2[2] + " en " + nregP2[1] + "\npuede obtener un " + minero.getValorCalculado() +" como calificación";    
+                }else{
+                    complemento2 += "Una alumna de " + nregP2[0] + " años que cursa " + nregP2[2] + " en " + nregP2[1] + "\npuede obtener un " + minero.getValorCalculado() +" como calificación";    
+                }
+                
+                panelResul.setText(resultado2 + complemento2);
                 break;
         }
     }//GEN-LAST:event_buttonPredecirActionPerformed

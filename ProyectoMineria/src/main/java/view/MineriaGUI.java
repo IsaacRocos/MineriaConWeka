@@ -103,7 +103,6 @@ public class MineriaGUI extends javax.swing.JFrame {
                 new Predicciones().setVisible(true);
             }
         });
-        
     }//GEN-LAST:event_buttonPrediccionesActionPerformed
 
     private void buttonClasificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClasificacionesActionPerformed

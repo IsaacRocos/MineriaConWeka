@@ -6,6 +6,7 @@
 package view;
 
 import controller.MineroControler;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,14 +48,14 @@ public class Clasificaciones extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(textPanelResul);
 
-        buttonPredecir.setText("Predecir");
+        buttonPredecir.setText("Clasificar");
         buttonPredecir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPredecirActionPerformed(evt);
             }
         });
 
-        comboBoxPredicciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "KMeans: Calif ->  Por edad y Genero", "RandomTree: Calif -> Edad, Genero", " " }));
+        comboBoxPredicciones.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "KMeans:  Calif  ->  Por edad , plantel y materia", "KMeans:  Calif  ->  Por edad , plantel , materia y genero", "RandomTree: Calif -> Por edad , plantel , materia y genero" }));
         comboBoxPredicciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxPrediccionesActionPerformed(evt);
@@ -112,10 +113,13 @@ public class Clasificaciones extends javax.swing.JFrame {
          int seleccion = comboBoxPredicciones.getSelectedIndex();
         switch(seleccion){
             case 0:
-                   textPanelResul.setText("Clasificar alumnos de acuerdo a su \nedad y la calificación que da a su profesor");
+                   textPanelResul.setText("Clasificar alumnos con KMEANS de acuerdo a su \n \n>EDAD\n>PLANTEL\n>MATERIA");
                 break;
             case 1:
-                    textPanelResul.setText("Clasificar alumnos de acuerdo a: \n>EDAD \n>PLANTEL\n>MATERIA");
+                    textPanelResul.setText("Clasificar alumnos en KMEANS de acuerdo a: \n>GENERO\n>EDAD\n>PLANTEL\n>MATERIA");
+                break;
+            case 2:
+                    textPanelResul.setText("Clasificar alumnos en RANDOM TREE de acuerdo a: \n>GENERO\n>EDAD\n>PLANTEL\n>MATERIA");
                 break;
         }
     }//GEN-LAST:event_comboBoxPrediccionesActionPerformed
@@ -126,13 +130,20 @@ public class Clasificaciones extends javax.swing.JFrame {
         System.out.println("Seleccion: " + comboBoxPredicciones.getSelectedItem());
         switch(seleccion){
             case 0:
-                    minero.setARFF("C:\\arff\\ALUMNO_GEN_ED_CAL.arff" , "");  //C:\\Users\\Isaac\\Desktop\\ProyectoMineria\\ALUMNO_GEN_ED_CAL.arff
-                    textPanelResul.setText(minero.clasificarSimpleKmeans());
+                    int numClusters = Integer.parseInt(JOptionPane.showInputDialog(this, "Numero de Clusters"));
+                    minero.setARFF("C:\\arff\\ALUMN_EDAD_PLANT_MAT_EVAL.arff" , null);  
+                    textPanelResul.setText(minero.clasificarSimpleKmeans(numClusters));
             break;
             
             case 1:
-                    minero.setARFF("C:\\arff\\ALUMNO_GEN_ED_CAL.arff", "");
-                    textPanelResul.setText( minero.clasificardorArbolAleat("genero") );
+                    numClusters = Integer.parseInt(JOptionPane.showInputDialog(this, "Numero de Clusters"));
+                    minero.setARFF("C:\\arff\\ALUMN_EDAD_PLANT_MAT_GEN_EVAL.arff" , null);  
+                    textPanelResul.setText(minero.clasificarSimpleKmeans(numClusters));
+            break;
+                
+            case 2:
+                    minero.setARFF("C:\\arff\\ALUMN_EDAD_PLANT_MAT_GEN_EVAL.arff", null);
+                    textPanelResul.setText("Determinando GENERO a partir de \nCalificaciones, materia y plantel:  \n"  +"************************\n\n" + minero.clasificardorArbolAleat("genero") );
             break;
                 
         }

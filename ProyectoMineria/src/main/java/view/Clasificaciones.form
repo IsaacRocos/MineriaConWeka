@@ -102,7 +102,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonPredecir">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Predecir"/>
+        <Property name="text" type="java.lang.String" value="Clasificar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPredecirActionPerformed"/>
@@ -112,9 +112,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="KMeans: Calif -&gt;  Por edad y Genero"/>
-            <StringItem index="1" value="RandomTree: Calif -&gt; Edad, Genero"/>
-            <StringItem index="2" value=" "/>
+            <StringItem index="0" value="KMeans:  Calif  -&gt;  Por edad , plantel y materia"/>
+            <StringItem index="1" value="KMeans:  Calif  -&gt;  Por edad , plantel , materia y genero"/>
+            <StringItem index="2" value="RandomTree: Calif -&gt; Por edad , plantel , materia y genero"/>
           </StringArray>
         </Property>
       </Properties>
